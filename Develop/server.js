@@ -19,6 +19,7 @@ app.use(express.static('public'));
 app.get('/notes', (req, res) => 
   res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
+
 //Link to main page
 // Changed to / because wildcard * was not loading notes
 // Trying to find fix to meet ReadMe requirements
@@ -40,6 +41,7 @@ app.get('/api/notes', (req, res) => {
     res.json(JSON.parse(data));
   });
 });
+
 // POST /api/notes
 app.post('/api/notes', (req, res) => {
   // logs the post request
@@ -81,7 +83,37 @@ app.post('/api/notes', (req, res) => {
     res.status(500).json('Error posting note');
   }
 });
+
 //Delete /api/notes/:id
+app.delete('/api/notes/:id', (req, res) => {
+//id from the request url
+  const notesId = req.params.id; 
+
+// This is to read the current saved notes in the db.json
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Error!')  
+    }
+
+    // json parsing the notes
+    const notes = JSON.parse(data);
+    // filtering the notes to remove the current note, which is found by its Id
+    const newNotes = notes.filter(data => data.id !== notesId);
+
+    // writing the updated new notes to the db.json
+    fs.writeFile('./db/db.json', JSON.stringify(newNotes, null, 4), (err) => {
+        if (err) {
+          console.error(err);
+          // if error, it will log error
+          return res.status(500).send('Error! Could not save new notes list after deletion');
+        }
+        // confirming that the note was deleted
+          console.info('Success! Deleted note!');
+          return res.json({ message: 'Success! Deleted note!' });
+    });
+  });
+});
 
 //Load server
 app.listen(PORT, () => 
