@@ -22,12 +22,21 @@ app.get('/notes', (req, res) =>
 //Link to main page
 //Normally I just use '/' but readme is asking for wildcald * not sure which is normal practice
 // Wildcard just gets anything not declared above
-app.get('*', (req, res) =>
+app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/index.html'))
 );
 
 // GET request /api/notes
-
+// This is used to get the existing notes from /db.json to load
+app.get('/api/notes', (req, res) => {
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return res.status(500).send('Error! Could not read notes.');
+    }
+    res.json(JSON.parse(data));
+  });
+});
 // POST /api/notes
 
 //Delete /api/notes/:id
