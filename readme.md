@@ -8,13 +8,19 @@ This project uses Express.js and uuid v4. To install the dependencies for this p
 
 npm install
 
+To install specific dependencies Express and uuid:
+
+npm install express
+
+npm install uuid
+
 Ensure that the correct version of the dependencies are installed.
 
-If express is missing, install it by entering:
+If express is wrong version, install it by entering:
 
 npm install express@4.16.4
 
-If uuid is missing, install it by entering:
+If uuid is wrong version, install it by entering:
 
 npm install uuid@9.0.1
 
