@@ -20,8 +20,8 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 //Link to main page
-//Normally I just use '/' but readme is asking for wildcald * not sure which is normal practice
-// Wildcard just gets anything not declared above
+// Changed to / because wildcard * was not loading notes
+// Trying to find fix to meet ReadMe requirements
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/index.html'))
 );
@@ -31,14 +31,56 @@ app.get('/', (req, res) =>
 app.get('/api/notes', (req, res) => {
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
     if (err) {
+        // logs error if there is an error reading db.json
         console.error(err);
+        // sends server error response
         return res.status(500).send('Error! Could not read notes.');
     }
+    // sends the parsed notes as json response
     res.json(JSON.parse(data));
   });
 });
 // POST /api/notes
+app.post('/api/notes', (req, res) => {
+  // logs the post request
+  console.info(`${req.method} request received to add a note`);
+  // Destructures title and text in req.body
+  const { title, text } = req.body;
+  // Checks if title and text are provided
+  if (title && text) {
+    const newNote = {
+        title,
+        text,
+        id: uuid.v4(), // Will generate RANDOM ID because of uuidv4
+    };
 
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+    } else {
+      // JSON parse the notes
+      const notes = JSON.parse(data);
+      // Pushes newNote to notes
+      notes.push(newNote);
+    
+    // writes to notes array to db.json with newNote added to notes
+    fs.writeFile('./db/db.json', JSON.stringify(notes, null, 4), (writeErr) => 
+    writeErr
+    ? console.error(writeErr)
+    : console.info('Success! Added new note!')
+    );
+    }
+  });
+  // Sends a response with new note
+  res.status(201).json({
+    status: 'success',
+    body: newNote,
+  });
+  } else {
+    // Sends an error response if note title or text is missing
+    res.status(500).json('Error posting note');
+  }
+});
 //Delete /api/notes/:id
 
 //Load server
