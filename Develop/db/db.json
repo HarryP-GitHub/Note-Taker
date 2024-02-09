@@ -1,21 +1,7 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
-    },
-    {
-        "title": "new note",
-        "text": "NOTE",
-        "id": "7c5d273f-9e74-4f08-95c3-12d171b953b9"
-    },
-    {
-        "title": "NOTE",
-        "text": "new note",
-        "id": "5fff0766-ab73-40ae-8c86-b37dc5ce7297"
-    },
-    {
-        "title": "NOTE2",
-        "text": "note note",
-        "id": "6cf2cea2-a8fe-4059-a715-2f7ddac60ea8"
+        "title": "New Note!",
+        "text": "Note!",
+        "id": "e5986368-25dd-4521-89e9-57d2fd06c6cb"
     }
 ]
