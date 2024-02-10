@@ -30,6 +30,7 @@ To use this project, begin by loading on the main page and click 'Get Started'. 
 ## Credits
 - Various internet resources
 - Class/Teacher's resources
+- Tom's Help with Route Order
 - UUID info: https://github.com/uuidjs/uuid
 - I used various resources on express.delete, but here is some: https://www.tabnine.com/code/javascript/functions/express/Express/delete
 - More: https://stackoverflow.com/questions/72488438/how-to-delete-data-using-rest-api-in-an-array-stored-in-a-json-file-based-on-h
@@ -43,4 +44,4 @@ N/A
 
 ## Deployed Application
 
-[Deployed Application]()
+[Deployed Application](https://secret-tor-01863-a0fd54272063.herokuapp.com/)
