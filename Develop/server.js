@@ -23,9 +23,9 @@ app.get('/notes', (req, res) =>
 //Link to main page
 // Changed to / because wildcard * was not loading notes
 // Trying to find fix to meet ReadMe requirements
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/index.html'))
-);
+// app.get('/', (req, res) =>
+//   res.sendFile(path.join(__dirname, 'public/index.html'))
+// );
 
 // GET request /api/notes
 // This is used to get the existing notes from /db.json to load
@@ -115,6 +115,10 @@ app.delete('/api/notes/:id', (req, res) => {
   });
 });
 
+//Moved wildcard get request here for public/index.html, so it doesn't overwrite the other parts
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+);
 //Load server
 app.listen(PORT, () => 
   console.log(`Express.js: Note Taker app is listening at http://localhost:${PORT}`)
