@@ -6,7 +6,7 @@ const uuid = require('uuid');
 // uuid will be using uuid for creating ids, v4 allows random id making
 
 // PORT
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // EXPRESS
 const app = express();
